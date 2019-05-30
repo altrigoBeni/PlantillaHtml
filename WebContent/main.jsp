@@ -1,3 +1,4 @@
+<%@page import="com.cice.PlantillaHtml.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -7,6 +8,15 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<%
+HttpSession httpSession = request.getSession();
+Usuario usuario = (Usuario)httpSession.getAttribute("USUARIO");
+
+
+%>
+
+
 
 <form action="Login">
   First name:<br>
