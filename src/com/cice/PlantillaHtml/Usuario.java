@@ -11,6 +11,12 @@ public class Usuario {
 	public Usuario() {
 		super();
 	}
+	
+	public Usuario(String nombre, String apellido) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+	}
 
 	public Usuario(String nombre, String apellido, Double peso, Double altura, String telefono) {
 		super();

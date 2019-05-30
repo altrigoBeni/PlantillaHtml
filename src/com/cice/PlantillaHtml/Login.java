@@ -32,7 +32,7 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nombre = request.getParameter("firstname");
 		String apellido = request.getParameter("lastname");
-		Usuario usuario = new Usuario(nombre, apellido,null,null,null);
+		Usuario usuario = new Usuario(nombre, apellido);
 		HttpSession httpSession = request.getSession();
 		httpSession.setAttribute("USUARIO", usuario);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/main.jsp");
@@ -42,14 +42,15 @@ public class Login extends HttpServlet {
 
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Double peso = (Double)req.getAttribute("weight");
-		Double altura = (Double)req.getAttribute("hight");
+		Double peso = Double.parseDouble(req.getParameter("weight"));
+		Double altura = Double.parseDouble(req.getParameter("hight"));
 		String telefono = req.getParameter("phone");		
 		HttpSession httpSession = req.getSession();
 		Usuario usuario = (Usuario)httpSession.getAttribute("USUARIO");
 		usuario.setPeso(peso);
 		usuario.setAltura(altura);
-		usuario.setTelefono(telefono);		
+		usuario.setTelefono(telefono);
+		httpSession.setAttribute("USUARIO", usuario);
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/main.jsp");
 		dispatcher.forward(req, resp);
 	}
