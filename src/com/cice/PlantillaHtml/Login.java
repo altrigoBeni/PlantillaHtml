@@ -16,7 +16,7 @@ import org.apache.coyote.Request;
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
+	
     public Login() {
         super();
         // TODO Auto-generated constructor stub
@@ -28,19 +28,31 @@ public class Login extends HttpServlet {
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/main.jsp");
 		dispatcher.forward(req, resp);
 	}
-
-
-
-
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nombre = request.getParameter("firstname");
 		String apellido = request.getParameter("lastname");
-		Usuario usuario = new Usuario(nombre, apellido);
+		Usuario usuario = new Usuario(nombre, apellido,null,null,null);
 		HttpSession httpSession = request.getSession();
 		httpSession.setAttribute("USUARIO", usuario);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/main.jsp");
 		dispatcher.forward(request, response);
 	}
 
+
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Double peso = (Double)req.getAttribute("weight");
+		Double altura = (Double)req.getAttribute("hight");
+		String telefono = req.getParameter("phone");		
+		HttpSession httpSession = req.getSession();
+		Usuario usuario = (Usuario)httpSession.getAttribute("USUARIO");
+		usuario.setPeso(peso);
+		usuario.setAltura(altura);
+		usuario.setTelefono(telefono);		
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/main.jsp");
+		dispatcher.forward(req, resp);
+	}
+
+	
 }

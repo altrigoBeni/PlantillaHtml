@@ -1,3 +1,5 @@
+<%@page import="com.sun.org.apache.bcel.internal.generic.SWITCH"%>
+<%@page import="com.sun.org.apache.bcel.internal.generic.Select"%>
 <%@page import="com.cice.PlantillaHtml.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -24,8 +26,27 @@ Usuario usuario = (Usuario)httpSession.getAttribute("USUARIO");
   <br><br>
   <input type="submit" value="Submit">
 </form> 
-<%} else{%>
-<h2>Hola <%= usuario.getNombre() %> <%=usuario.getApellido() %> tienes unas orejas muy grandes</h2>
+<%}else if((usuario.getPeso() == null) || (usuario.getAltura()==null) || (usuario.getTelefono()==null)){%>
+
+<h2>Hola <%= usuario.getNombre() %> <%=usuario.getApellido() %>, introduce el resto de tus datos</h2>
+<form action="Login" method="put">
+  Weight:<br>
+  <input type="number" name="weight">
+  <br>
+  Hight:<br>
+  <input type="number" name="hight">
+  <br>
+  Phone:<br>
+  <input type="text" name="phone">
+  <br><br>
+  <input type="submit" value="Submit">
+</form> 
+
+<%}else {%>
+<h2>Hola <%= usuario.getNombre() %> <%=usuario.getApellido() %>, tus datos son:</h2>
+<h3>Tu peso es: <%=usuario.getPeso() %></h3>
+<h3>Tu altura es: <%=usuario.getAltura() %></h3>
+<h3>Tue telf es: <%=usuario.getTelefono() %></h3>
 <%} %>
 
 </body>
