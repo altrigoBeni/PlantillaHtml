@@ -29,7 +29,7 @@ Usuario usuario = (Usuario)httpSession.getAttribute("USUARIO");
 <%}else if((usuario.getPeso() == null) || (usuario.getAltura()==null) || (usuario.getTelefono()==null)){%>
 
 <h2>Hola <%= usuario.getNombre() %> <%=usuario.getApellido() %>, introduce el resto de tus datos</h2>
-<form action="Login" method="put">
+<form action="Login" method="post">
   Weight:<br>
   <input type="number" name="weight">
   <br>
@@ -43,10 +43,7 @@ Usuario usuario = (Usuario)httpSession.getAttribute("USUARIO");
 </form> 
 
 <%}else {%>
-<h2>Hola <%= usuario.getNombre() %> <%=usuario.getApellido() %>, tus datos son:</h2>
-<h3>Tu peso es: <%=usuario.getPeso() %></h3>
-<h3>Tu altura es: <%=usuario.getAltura() %></h3>
-<h3>Tue telf es: <%=usuario.getTelefono() %></h3>
+<h2>Hola <%= usuario.getNombre() %> <%=usuario.getApellido() %>, pesas <%=usuario.getPeso() %>, mides <%=usuario.getAltura() %> Tu telf es: <%=usuario.getTelefono() %></h2>
 <%} %>
 
 </body>

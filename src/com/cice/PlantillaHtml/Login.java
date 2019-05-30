@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.coyote.Request;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
@@ -30,30 +32,28 @@ public class Login extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nombre = request.getParameter("firstname");
-		String apellido = request.getParameter("lastname");
-		Usuario usuario = new Usuario(nombre, apellido);
 		HttpSession httpSession = request.getSession();
-		httpSession.setAttribute("USUARIO", usuario);
+		Usuario usuario = (Usuario)httpSession.getAttribute("USUARIO");
+		
+		if (usuario==null) {
+			String nombre = request.getParameter("firstname");
+			String apellido = request.getParameter("lastname");
+			usuario = new Usuario (nombre, apellido);
+			httpSession.setAttribute("USUARIO", usuario);
+		}else {
+			Double peso = Double.parseDouble(request.getParameter("weight"));
+			Double altura = Double.parseDouble(request.getParameter("hight"));
+			String telefono = request.getParameter("phone");
+			usuario.setPeso(peso);
+			usuario.setAltura(altura);
+			usuario.setTelefono(telefono);
+			httpSession.setAttribute("USUARIO", usuario);					
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/main.jsp");
 		dispatcher.forward(request, response);
 	}
 
 
-	@Override
-	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Double peso = Double.parseDouble(req.getParameter("weight"));
-		Double altura = Double.parseDouble(req.getParameter("hight"));
-		String telefono = req.getParameter("phone");		
-		HttpSession httpSession = req.getSession();
-		Usuario usuario = (Usuario)httpSession.getAttribute("USUARIO");
-		usuario.setPeso(peso);
-		usuario.setAltura(altura);
-		usuario.setTelefono(telefono);
-		httpSession.setAttribute("USUARIO", usuario);
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/main.jsp");
-		dispatcher.forward(req, resp);
-	}
 
 	
 }
