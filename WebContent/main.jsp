@@ -12,13 +12,10 @@
 <%
 HttpSession httpSession = request.getSession();
 Usuario usuario = (Usuario)httpSession.getAttribute("USUARIO");
-
-
 %>
 
-
-
-<form action="Login">
+<%if(usuario == null){ %>
+<form action="Login" method="post">
   First name:<br>
   <input type="text" name="firstname" value="Mickey">
   <br>
@@ -27,6 +24,9 @@ Usuario usuario = (Usuario)httpSession.getAttribute("USUARIO");
   <br><br>
   <input type="submit" value="Submit">
 </form> 
+<%} else{%>
+<h2>Hola <%= usuario.getNombre() %> <%=usuario.getApellido() %> tienes unas orejas muy grandes</h2>
+<%} %>
 
 </body>
 </html>

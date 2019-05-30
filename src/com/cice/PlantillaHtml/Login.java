@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.coyote.Request;
 
@@ -33,8 +34,13 @@ public class Login extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String nombre = request.getParameter("firstname");
+		String apellido = request.getParameter("lastname");
+		Usuario usuario = new Usuario(nombre, apellido);
+		HttpSession httpSession = request.getSession();
+		httpSession.setAttribute("USUARIO", usuario);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/main.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }
