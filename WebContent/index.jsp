@@ -11,6 +11,10 @@
 <h1>Inicio</h1>
 
 <a href="Login">Registro</a>
+<br><br>
+
+
+<a href="LoginJugadores">Lista de personas del equipo</a>
 
 </body>
 </html>
