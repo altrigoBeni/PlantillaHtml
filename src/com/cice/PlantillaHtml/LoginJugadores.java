@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.cice.gestionequipo.dao.DataSource;
-import com.cice.gestionequipo.entidades.Personal;
 
 /**
  * Servlet implementation class LoginJugadores
@@ -35,7 +34,7 @@ public class LoginJugadores extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession httpSession = request.getSession();		
-		httpSession.setAttribute("DATASOURCE", dataSource); //Se ke incluye el dataSource porque ya contiene toda la info de plantilla
+		httpSession.setAttribute("DATASOURCE", dataSource); //Se le incluye el dataSource porque ya contiene toda la info de plantilla
 		dataSource.plantilla.forEach((clave,valor)->{System.out.println("Key: " + clave + " Value: " + valor);});
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/jugadores.jsp");
 		dispatcher.forward(request, response);
